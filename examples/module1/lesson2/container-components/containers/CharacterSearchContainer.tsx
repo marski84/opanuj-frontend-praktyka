@@ -3,6 +3,7 @@ import CharacterList from '../components/CharacterList';
 import SearchForm from '../components/SearchForm';
 import SearchTitle from '../components/SearchTitle';
 import { Character } from '../types/Character';
+import { searchCharacter } from '../../modules/search-character.ts';
 
 function CharacterSearchContainer() {
   const [name, setName] = useState('');
@@ -11,14 +12,7 @@ function CharacterSearchContainer() {
   const [sortOption, setSortOption] = useState('');
 
   useEffect(() => {
-    if (name || gender) {
-      fetch(
-        `https://rickandmortyapi.com/api/character/?name=${name}&gender=${gender}`
-      )
-        .then((response) => response.json())
-        .then((data) => setCharacters(data.results || []))
-        .catch((error) => console.error('Error fetching data:', error));
-    }
+    searchCharacter(name, gender, setCharacters);
   }, [name, gender]);
 
   const sortedCharacters = [...characters].sort((a, b) => {

@@ -19,9 +19,9 @@ export class CharacterSearchService {
     Character[]
   >();
   characters: Signal<Character[]> = signal([]);
-  private nameSubject = new BehaviorSubject<string>('');
-  private genderSubject = new BehaviorSubject<string>('');
-  private sortOptionSubject = new BehaviorSubject<string>('');
+  private nameSubject = new Signal<string>('');
+  private genderSubject = new Signal<string>('');
+  private sortOptionSubject =  Signal('');
   private apiBaseUrl = 'https://rickandmortyapi.com/api/character/';
 
   constructor(private http: HttpClient) {
@@ -35,7 +35,7 @@ export class CharacterSearchService {
             .get<{ results: Character[] }>(
               `${this.apiBaseUrl}?name=${name}&gender=${gender}`
             )
-            .pipe(map((response) => response.results || []));
+            .pipe(map((response: any) => response.results || []));
         } else {
           return of([]);
         }

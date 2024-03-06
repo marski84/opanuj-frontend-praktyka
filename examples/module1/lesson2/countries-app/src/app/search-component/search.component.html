@@ -1,0 +1,24 @@
+<fieldset>
+  <legend>Select data filter</legend>
+  <select [(ngModel)]="selectedFilter">
+    <option *ngFor="let filter of availableFilters">{{filter}}</option>
+  </select>
+  <div>
+    <label>
+      Search phrase
+    </label>
+    <input
+      type="text"
+      [(ngModel)]="searchPhrase"
+      placeholder="Please enter search phrase"
+    >
+
+    <button
+      [disabled]="selectedFilter.length === 0 || searchPhrase.length === 0"
+      (click)="search(selectedFilter, searchPhrase)"
+    >
+      Search</button>
+  </div>
+
+</fieldset>
+

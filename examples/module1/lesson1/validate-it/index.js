@@ -1,34 +1,31 @@
-function validator() {
-  const input = document.getElementById('input');
-  const button = document.getElementById('button');
-  const button2 = document.getElementById('button2');
-  const result = document.getElementById('result');
 
-  button.addEventListener('click', () => {
-    if (input.value) {
-      if (Number.isInteger(input.value)) {
-        if (
-          Number(input.value) > 0 &&
-          Number(input.value) < 100 &&
-          Number(input.value) % 2 === 0
-        ) {
-          result.innerHTML = 'Valid';
-        } else {
-          result.innerHTML = 'Invalid';
-        }
-        result.innerHTML = 'Valid';
-      } else {
-        result.innerHTML = 'Invalid';
-      }
-    } else {
-      result.innerHTML = 'Invalid';
+const clearInput = (inputRef, resultRef) => {
+  inputRef.value = '';
+  resultRef.innerHTML = '';
+};
+
+const validateNumber = (value) => {
+  return Number(value) > 0 && Number(value) < 100 && Number(value) % 2 === 0;
+}
+
+const NoModuloRestValidator = () => {
+  const inputField = document.getElementById('input')
+  const validateButton = document.getElementById('validate-button');
+  const clearButton = document.getElementById('clear-button');
+  const resultViewContainer = document.getElementById('result');
+
+  validateButton.addEventListener('click', () => {
+    if (!inputField.value) {
+      return resultViewContainer.innerHTML = 'Please provide a value';
     }
-  });
+    const inputValue = Number(inputField.value);
+    return validateNumber(inputValue) ?
+      resultViewContainer.innerHTML = 'Valid' : resultViewContainer.innerHTML = 'Invalid';
+  })
 
-  button2.addEventListener('click', () => {
-    input.value = '';
-    result.innerHTML = '';
+  clearButton.addEventListener('click', () => {
+    clearInput(inputField, resultViewContainer);
   });
 }
 
-validator();
+NoModuloRestValidator();

@@ -1,0 +1,4 @@
+<app-search-component (onSearchEmitted)="handleSearch($event)"></app-search-component>
+<app-countries-list *ngIf="countriesList() as countriesList"
+  [countriesList]="countriesList"
+></app-countries-list>
